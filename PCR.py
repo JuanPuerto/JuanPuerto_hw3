@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-cancer = np.genfromtxt('WDBC.dat', delimiter = ',') # Almacena los datos del archivo WDBC.dat en la variable: cancer
+cancer = np.genfromtxt('WDBC.dat', delimiter = ',', usecols=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31)) # Almacena los datos del archivo WDBC.dat en la variable: cancer
 
 def matriz_cov(archivo): # Matriz de covarianza par un archivo
 	dim = np.shape(archivo)[1]	# La dimension de la matriz de covarianza es el numero de columnas del archivo
@@ -18,4 +18,12 @@ def matriz_cov(archivo): # Matriz de covarianza par un archivo
 	
 covarianza_cancer = matriz_cov(cancer) # Matriz de covarianza para los datos del archivo WDBC.dat
 
-print(covarianza_cancer) # Imprime matriz de covarianza
+print("Matriz de covarianza: ","\n",covarianza_cancer) # Imprime matriz de covarianza
+
+eig_val, eig_vec = np.linalg.eig(covarianza_cancer) # Eigenvalores y eigenvectores de la matriz de covarianza
+
+col = np.shape(eig_vec)[1] # Halla el numero de columnas de la matriz de eigenvectores
+
+for i in range(col): # Para imprimir los eigenvalores en orden con sus correspondientes eigenvectores
+	print('Eigenvalor',i+1,':',eig_val[i]) # Imprime el eigenvalor ordenado
+	print('Eigenvector',i+1,':',eig_vec[:,i]) # Imprime el eigenvector correspondiente al anterior eigenvalor
