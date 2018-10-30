@@ -1,7 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-cancer = np.genfromtxt('WDBC.dat', delimiter = ',', usecols=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31)) # Almacena los datos del archivo WDBC.dat en la variable: cancer
+cancer = np.genfromtxt('WDBC.dat', delimiter = ',', dtype = 'U16') # Almacena los datos del archivo WDBC.dat en la variable: cancer
+
+util = cancer[:,2:].astype(float) # Matriz con los parametros numericos
+
+letras = cancer[:,:2] # Matriz con el ID y la columna de Maligno/Benigno
 
 def matriz_cov(archivo): # Matriz de covarianza par un archivo
 	dim = np.shape(archivo)[1]	# La dimension de la matriz de covarianza es el numero de columnas del archivo
