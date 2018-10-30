@@ -31,3 +31,9 @@ col = np.shape(eig_vec)[1] # Halla el numero de columnas de la matriz de eigenve
 for i in range(col): # Para imprimir los eigenvalores en orden con sus correspondientes eigenvectores
 	print('Eigenvalor',i+1,':',eig_val[i]) # Imprime el eigenvalor ordenado
 	print('Eigenvector',i+1,':',eig_vec[:,i]) # Imprime el eigenvector correspondiente al anterior eigenvalor
+
+promedio = util.mean(axis=1)
+desviacion = util.std(axis=1)
+normalizados = np.zeros_like(util)
+for i in range(util.shape[0]):
+    normalizados[i] = (util[i] - promedio[i])/desviacion[i]
