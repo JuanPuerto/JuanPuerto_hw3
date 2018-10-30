@@ -20,7 +20,7 @@ def matriz_cov(archivo): # Matriz de covarianza par un archivo
 	
 	return covarianza 
 	
-covarianza_cancer = matriz_cov(cancer) # Matriz de covarianza para los datos del archivo WDBC.dat
+covarianza_cancer = matriz_cov(util) # Matriz de covarianza para los datos del archivo WDBC.dat
 
 print("Matriz de covarianza: ","\n",covarianza_cancer) # Imprime matriz de covarianza
 
