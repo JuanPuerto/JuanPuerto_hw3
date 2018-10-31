@@ -32,8 +32,24 @@ for i in range(col): # Para imprimir los eigenvalores en orden con sus correspon
 	print('Eigenvalor',i+1,':',eig_val[i]) # Imprime el eigenvalor ordenado
 	print('Eigenvector',i+1,':',eig_vec[:,i]) # Imprime el eigenvector correspondiente al anterior eigenvalor
 
+malignos = []
+benignos = []
+
+for i in range(np.shape(letras)[0]):
+	if(letras[i,1] == 'M'):
+		malignos.append(util[i])
+	elif(letras[i,1] == 'B'):
+		benignos.append(util[i])
+
+benignos = np.array(benignos)
+benignos = np.array(malignos)
+
+matriz1 = np.matmul(benignos,eig_vec[:,0])
+matriz2 = np.matmul(malignos,eig_vec[:,1])
+
+"""
 promedio = util.mean(axis=1)
 desviacion = util.std(axis=1)
 normalizados = np.zeros_like(util)
 for i in range(util.shape[0]):
-    normalizados[i] = (util[i] - promedio[i])/desviacion[i]
+    normalizados[i] = (util[i] - promedio[i])/desviacion[i]"""
