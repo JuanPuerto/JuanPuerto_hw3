@@ -27,6 +27,8 @@ normalizados = np.zeros_like(util) # Genera matriz de ceros para la normalizacio
 
 for i in range(util.shape[0]):
     normalizados[i] = (util[i] - promedio[i])/desviacion[i] # Normalizacion de los datos
+    
+#print(normalizados)
 
 covarianza_cancer = matriz_cov(normalizados)# Matriz de covarianza para los datos del archivo WDBC.dat normalizados
 
@@ -40,24 +42,32 @@ for i in range(col): # Para imprimir los eigenvalores en orden con sus correspon
 	print('Eigenvalor',i+1,':',eig_val[i]) # Imprime el eigenvalor ordenado
 	print('Eigenvector',i+1,':',eig_vec[:,i]) # Imprime el eigenvector correspondiente al anterior eigenvalor
 
-malignos = []
-benignos = []
-
-for i in range(np.shape(letras)[0]):
-	if(letras[i,1] == 'M'):
-		malignos.append(util[i])
+"""
+malignos = np.zeros((212,normalizados.shape[1]))
+benignos = np.zeros((357,normalizados.shape[1]))
+		
+for i in range(letras.shape[0]):
+	if (letras[i,1] == 'M'):
+		malignos[i,:]=normalizados[i,:]
 	elif(letras[i,1] == 'B'):
-		benignos.append(util[i])
-
-benignos = np.array(benignos)
-benignos = np.array(malignos)
+		benignos[i,:]=normalizados[i,:]
 
 matriz1 = np.matmul(benignos,eig_vec[:,0])
-matriz2 = np.matmul(malignos,eig_vec[:,1])
+matriz2 = np.matmul(malignos,eig_vec[:,1])""" # No funciona
 
-"""
-promedio = util.mean(axis=1)
-desviacion = util.std(axis=1)
-normalizados = np.zeros_like(util)
-for i in range(util.shape[0]):
-    normalizados[i] = (util[i] - promedio[i])/desviacion[i]"""
+capo = eig_val.argsort()[::-1] 
+val = eig_val[pos]
+vec = eig_vec[:, pos]
+a, b = vec[:, :2].T
+print("La primera componente principal es: \n",a,"\n La segunda componente principal es: \n",b)
+
+nueva = np.matmul(vec.T, normalizados.T)
+
+plt.figure()
+plt.scatter(nueva[0], nueva[1]) # Grafica de los datos en torno a las componentes principales
+plt.xlabel('CP 1')
+plt.ylabel('CP 2')
+plt.savefig('PuertoJuan_PCA.pdf')
+
+
+print('El metodo de PCA es util para hacer esta clasificacion, ya que dados ciertos parametros es posible explicar el estado del cancer en los pacientes. Sin embargo, para ciertos valores, los dos tipos de cancer benigno y maligno se superponen y no permiten hacer una distincion correcta. Por loa tanto, PCA sirve para ciertos valores altos.')
