@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 signal = np.genfromtxt('signal.dat', delimiter = ',') # Almacena los datos del archivo signal.dat en la variable: signal
 incompletos = np.genfromtxt('incompletos.dat', delimiter = ',') # Almacena los datos del archivo incompletos.dat en la variable: incompletos
 
-x = signal[:,0]
-y = signal[:,1]
+x = signal[:,0] # Para signal
+y = signal[:,1] # Para signal
 
 plt.figure()
 plt.plot(x,y) # Grafica datos signal
@@ -50,3 +50,21 @@ def pasa_bajos(archivo, frecuencias, c = 1000): # Filtro pasa bajos para frecuen
 	filtro = archivo.copy()
 	filtro[frecuencias > c] = 0 # Frecuencias mayores a 1000Hz las vuelve cero
 	return filtro
+	
+bajos = pasa_bajos(frecuencias, fourier2)
+
+inversa = np.fft.ifft(bajos[1]) # Transformada inversa usando paquetes de numpy
+
+xsevero = np.linspace(min(x),max(x),len(inversa))
+
+plt.figure()
+plt.plot(x,inversa) # Grafica transformada inversa de Fourier
+plt.xlabel('Tiempo')
+plt.ylabel('y')
+plt.title("Transformada Inversa de Fourier")
+plt.savefig('PuertoJuan_filtrada.pdf')
+
+x_crack = incompletos[:,0] # Para incompletos
+y_crack = incompletos[:,1] # Para incompletos
+
+print("Se puede realizar la transformada de Fourier a incompletos.dat, pero la informacion obtenida de esta no es correcta, porque los datos no poseen el mismo delta de tiempo. ")
