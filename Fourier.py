@@ -8,26 +8,36 @@ x = signal[:,0]
 y = signal[:,1]
 
 plt.figure()
-plt.plot(x,y]) # Grafica datos signal
-plt.xlabel('x') # Nombre eje x
-plt.ylabel('y') # Nombre eje y
-#plt.savefig('PuertoJuan_signal.pdf') # Guarda la grafica en PuertoJuan_signal.pdf
+plt.plot(x,y) # Grafica datos signal
+plt.xlabel('Tiempo') 
+plt.ylabel('y') 
+plt.title("Signal") 
+plt.savefig('PuertoJuan_signal.pdf') 
 
-def fourier(archivo):
-	n = len(archivo)
-	m = np.linspace(0,n)
-	for k in range(transformada.shape[0]):
-		transformada[k] = np.sum((archivo*np.exp(-1j*2*np.pi*((k*m)/n))))
+def fourier(x,y): # Transformada de Fourier
+	n = len(x)
+	m = len(y)
+	transformada = np.linspace(0,0,n)
+	for k in range(n):
+		for m in range(m)
+			transformada[k] += (y[m]*np.exp(-1j*2*np.pi*((k*m)/n))))
+	transformada=transformada/n
 	return transformada
 
-fourier = fourier(signal)
-frecuencias = np.fft.fftfreq(signal.shape[0], d=2.0)
+d=x[1]-x[0] # Espaciado de las muestras en el tiempo
+
+fourier = abs(fourier(x,y)) # Valores positivos de Fourier aplicado a los datos 
+fourier2 = fourier(x,y)	# Fourier aplicado a los datos 
+frecuencias = np.fft.fftfreq(len(x), d) # Frecuencias de Fourier de los datos
 
 plt.figure()
-plt.plot(frecuencias,fourier)
-plt.show()
+plt.plot(frecuencias,fourier) # Grafica transformada de Fourier
+plt.xlabel('Frecuencia')
+plt.ylabel('Transformada de Fourier')
+plt.title("Transformada Discreta de Fourier")
+plt.savefig('PuertoJuan_TF.pdf')
 
 def pasa_bajos(archivo, frecuencias, c = 1000): # Filtro pasa bajos para frecuencia de corte de 1000Hz
-    filtro = archivo.copy()
-    filtro[frecuencias > c] = 0 # Frecuencias mayores a 1000Hz las vuelve cero
-return filtro
+	filtro = archivo.copy()
+	filtro[frecuencias > c] = 0 # Frecuencias mayores a 1000Hz las vuelve cero
+	return filtro
