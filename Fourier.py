@@ -37,6 +37,15 @@ plt.ylabel('Transformada de Fourier')
 plt.title("Transformada Discreta de Fourier")
 plt.savefig('PuertoJuan_TF.pdf')
 
+def frec_prin(f): # Devuelve las frecuencias principales
+	lista1=[]
+	for i in range(len(f)):
+		if fourier[i]>0.4:
+			lista1.append(f[i])
+	return lista1
+	
+print('Las frecuencias principales son: \n',frec_prin(frecuencias)) # Imprime las frecuencias principales
+
 def pasa_bajos(archivo, frecuencias, c = 1000): # Filtro pasa bajos para frecuencia de corte de 1000Hz
 	filtro = archivo.copy()
 	filtro[frecuencias > c] = 0 # Frecuencias mayores a 1000Hz las vuelve cero
