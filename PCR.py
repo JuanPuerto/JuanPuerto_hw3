@@ -20,7 +20,15 @@ def matriz_cov(archivo): # Matriz de covarianza par un archivo
 	
 	return covarianza 
 	
-covarianza_cancer = matriz_cov(util) # Matriz de covarianza para los datos del archivo WDBC.dat
+promedio = util.mean(axis=1) # Promedio de los datos por columnas
+desviacion = util.std(axis=1) # Desviacion estandar de los datos por columnas
+
+normalizados = np.zeros_like(util) # Genera matriz de ceros para la normalizacion
+
+for i in range(util.shape[0]):
+    normalizados[i] = (util[i] - promedio[i])/desviacion[i] # Normalizacion de los datos
+
+covarianza_cancer = matriz_cov(normalizados)# Matriz de covarianza para los datos del archivo WDBC.dat normalizados
 
 print("Matriz de covarianza: ","\n",covarianza_cancer) # Imprime matriz de covarianza
 
